@@ -56,3 +56,7 @@ Route::resource('/examen', 'ExamenController')->except('index', 'show')->middlew
 Route::get('/examen/{examen}', 'ExamenController@show')->name('examen.show');
 
 Route::get('/test.singletest', 'TestController@presentar_examen')->name('test.singletest');
+
+Route::post('/save/exam', 'ExamenController@save_exam');
+
+Route::get('/logros', 'LogController@index');

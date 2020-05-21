@@ -11,10 +11,12 @@
 @if (Auth::check() && (Auth::user()->role->first()->name == 'Author' or Auth::user()->role->first()->name == "Admin"))
     <a href="{{ route('examen.create') }}" class="btn btn-secondary" id="examen_button">Crear titulo del nuevo examen</a>
 @endif
+
+<progress-bar :progress="{{ $progress_bar }}"></progress-bar>
 <div class="container" id = "coursescontent">
     <div class="row">
         <div class="col-md-12">
-            @if ($examenes->isEmpty())
+            @if (count($examenes) == 0)
                 @if (session('examen'))
                     <div class="card-body">
                         <h2 class="alert alert-info">
@@ -45,7 +47,7 @@
     </div>
 </div>
 
-@if (Auth::check() && (Auth::user()->role->first()->name == 'Author' or Auth::user()->role->first()->name == "Admin") && (!($examenes->isEmpty())))
+@if (Auth::check() && (Auth::user()->role->first()->name == 'Author' or Auth::user()->role->first()->name == "Admin") && (!(count($examenes) == 0)))
     <a href="{{ route('test.create') }}" class="btn btn-secondary" id="examen_button">Crear preguntas del nuevo examen</a>
 @endif
 

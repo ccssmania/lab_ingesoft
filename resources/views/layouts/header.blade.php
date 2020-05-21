@@ -39,6 +39,11 @@
                             <a class="nav-link" href="{{ route('user.account', [Auth::id()]) }}">Informacion de cuenta</a>
                     </li>
                 @endif
+                @if (Auth::check())
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/logros') }}">Logros</a>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest

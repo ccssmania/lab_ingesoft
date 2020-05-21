@@ -14,10 +14,9 @@ class RolePermission extends Migration
     public function up()
     {
         Schema::create('role_permission', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('role_id')->unsigned();
             $table->integer('permission_id')->unsigned();
-
-            $table->primary(['role_id', 'permission_id']);
 
             $table->foreign('role_id')
                     ->references('id')

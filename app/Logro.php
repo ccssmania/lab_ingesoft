@@ -16,7 +16,7 @@ class Logro extends Model
     {
         return $this->belongsToMany('App\Courses');
     }
-    public function userss()
+    public function users()
     {
         return $this->belongsToMany('App\User');
     }

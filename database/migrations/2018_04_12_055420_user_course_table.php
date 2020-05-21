@@ -14,6 +14,7 @@ class UserCourseTable extends Migration
     public function up()
     {
         Schema::create('user_course', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->boolean('course_enrolled');
@@ -30,7 +31,6 @@ class UserCourseTable extends Migration
                     ->on('courses')
                     ->onDelete('cascade');
 
-            $table->primary(['user_id', 'course_id']);
         });
     }
 

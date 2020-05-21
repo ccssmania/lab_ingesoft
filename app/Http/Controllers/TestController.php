@@ -90,7 +90,7 @@ class TestController extends Controller
             ]);
         }*/
         $input =$request->all();
-
+        $user = \Auth::user();
         for ($i=1; $i < $input['cantidad']+1; $i++) { 
             $titulo = 'pregunta_'.$i;
             Test::create([
@@ -103,6 +103,7 @@ class TestController extends Controller
                 'respuesta_4' => $input['respuesta_4_'.$i],
                 'respuesta_correcta' => $input['respuesta_correcta_'.$i],
                 'imagen' => "esto_funca.jpg",
+                'user_id' => $user->id
             ]);
         }
 
@@ -135,7 +136,8 @@ class TestController extends Controller
     
     public function presentar_examen(Request $request){
         $preguntas = Test::select()->where('examen_id',$request['examen_id'])->get();
-        return view('tests.singletest', compact('preguntas'));
+        $examen_id = $request['examen_id'];
+        return view('tests.singletest', compact('preguntas', 'examen_id'));
     }
 
 

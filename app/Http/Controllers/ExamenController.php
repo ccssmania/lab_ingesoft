@@ -8,9 +8,23 @@ use App\Course;
 use Auth;
 use App\Examen;
 use App\UserTest;
+use App\Result;
+use App\Log;
+
 
 class ExamenController extends Controller
 {
+
+    /**
+     * Just Users Logged in
+     *
+     * @return void
+     */
+    public function __construct(){
+        $this->middleware("auth");
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -27,16 +41,31 @@ class ExamenController extends Controller
             }
             $courses = collect($courses);
         } else {*/
-            $examenes= Examen::all();
+        $count = 0;
+        if(\Auth::user()->role()->first()->name === 'Admin'){
+            $examenes = Examen::all();
+        }else{
+            $examenes = [];
+            $all_users_exam = \Auth::user()->exams;
+            foreach ($all_users_exam as $user_exam) {
+                $examenes[] = $user_exam;
+                if(Log::where('user_id', \Auth::user()->id)->where('examen_id', $user_exam->id)->first() == null){
+                    break;
+                }else{
+                    $count++;
+                }
+            }
+        }
+        $progress_bar = ($count * 100) / count(\Auth::user()->exams);
         //}
-        if ($examenes->isEmpty()) {
+        if (count($examenes) == 0) {
             \Session::flash('examen', 'No hay examenes disponibles');
         } /*else {
             foreach ($examenes as $examen) {
                 $examen->author = User::find($examen->user_id);
             }
         }*/
-        return view('examen', compact('examenes'));
+        return view('examen', compact('examenes', 'progress_bar'));
     }
 
     /**
@@ -136,5 +165,74 @@ class ExamenController extends Controller
         \Session::flash('flash_message', 'Examen Eliminado!');
         // dd($examen);
         return redirect(route('examen.index'));
+    }
+
+    public function save_exam(Request $request){
+        $examen = Examen::find($request->examen_id);
+        $respuesta_preguntas = $request->all();
+        $rights = 0;
+        $message = '';
+        $questions = $examen->questions;
+        foreach ($questions as $question) {
+            if(isset($respuesta_preguntas['respuesta_pregunta_'.$question->id_pregunta])){
+                if($respuesta_preguntas['respuesta_pregunta_'.$question->id_pregunta] == $question->respuesta_correcta)
+                    $rights += 1;
+            }
+        }
+        $score = ($rights * 5) / count($questions);
+        
+        $result = new Result;
+
+        $result->score = $score;
+        $result->user_id = \Auth::user()->id;
+        $result->examen_id = $examen->id;
+
+        if($result->save()){
+            $message .= 'Examen Enviado! ' . 'NOTA FINAL: '. $score;
+            $last_result = Result::where('examen_id', $examen->id)->where( 'user_id', \Auth::user()->id)->orderBy('score', 'Desc')->first();
+            if(isset($last_result)){
+                $logro = new Log;
+                $logro->name = 'Nota mas alta: ' . $score;
+                $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
+                $logro->user_id = \Auth::user()->id;
+                $logro->save();
+
+                if($score > 3 and Log::where('user_id', \Auth::user()->id)->where('examen_id', $examen->id)->first() == null){
+                    $new_exam = new Log;
+                    $new_exam->name = 'Ha superado el examen';
+                    $new_exam->description = 'El siguiente examen ya esta disponible';
+                    $new_exam->user_id = \Auth::user()->id;
+                    $new_exam->examen_id = $examen->id;
+                    $new_exam->save();
+                    $message .= '<br></br> Ha superado el examen. ';
+                }
+                $new_achivement = $score == $last_result->score ? '<br></br> Nuevo logro: NOTA MAS ALTA' : '';
+            }
+            else{
+                $logro = new Log;
+                $logro->name = 'Nota mas alta: ' . $score;
+                $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
+                $logro->user_id = \Auth::user()->id;
+                $logro->save();
+
+                if($score > 3 and Log::where('user_id', \Auth::user()->id)->where('examen_id', $examen->id)->first() == null){
+                    $new_exam = new Log;
+                    $new_exam->name = 'Ha superado el examen';
+                    $new_exam->description = 'El siguiente examen ya esta disponible';
+                    $new_exam->user_id = \Auth::user()->id;
+                    $new_exam->examen_id = $examen->id;
+                    $new_exam->save();
+                    $message .= '<br></br> Ha superado el examen. ';
+                }
+                $new_achivement = '<br></br> Nuevo logro: NOTA MAS ALTA ---- ';
+            }
+            $message .=  $new_achivement ;
+            \Session::flash('flash_message', $message);
+            //dd(\Session::has('flash_message'), \Session::get('flash_message'));
+            return redirect('/home');
+        }else{
+            \Session::flash('errorMessage', 'algo salio mal');
+            return redirect('/home');
+        }
     }
 }

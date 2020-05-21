@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Lession extends Model
+class Lesson extends Model
 {
     protected $fillable = [
         'course_id', 'titulo','contenido'

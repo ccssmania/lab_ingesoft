@@ -8,6 +8,7 @@ use App\Course;
 use Auth;
 use App\UserCourse;
 use App\Enrollments;
+use App\Lesson;
 
 class CourseController extends Controller
 {
@@ -61,10 +62,24 @@ class CourseController extends Controller
         $input = $request->all();
         //$input['thumbnail'] = $request->file('thumbnail')->store('images');
         $input['user_id'] = Auth::id();
-        $course = Course::create($input);
-        \Session::flash('flash_message', 'Un nuevo curso ha sido creado!');
-        $author = User::find($course->user_id);
-        return redirect(route('home'));
+        $course = new Course($input);
+        if($course->save()){
+            \Session::flash('flash_message', 'Un nuevo curso ha sido creado!');
+            $author = User::find($course->user_id);
+
+            if(isset($request->lessons)){
+                foreach ($request->lessons as $key => $title) {
+                    if(isset($request->descriptions[$key]) and isset($request->descriptions[$key]) !== ''){
+                        $lesson = new Lesson;
+                        $lesson->course_id = $course->id;
+                        $lesson->titulo = $title;
+                        $lesson->contenido = $request->descriptions[$key];
+                        $lesson->save();
+                    }
+                }
+            }
+            return redirect(route('home'));
+        }
     }
 
     /**

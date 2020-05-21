@@ -26,17 +26,17 @@
             <h1 class="my-4">Niveles Disponibles</h1>
             @foreach ($courses as $course)
 
-            <div class="card mb-4">
-                {{-- <img class="card-img-top" src="" alt="{{ $course['thumbnail'] }}"> --}}
-                <a href = "{{ route('course.show', [$course->id]) }}"</a>
-                <div class="card-body">
-                    <h2 class="card-title"><a href = "{{ route('course.show', [$course->id]) }}">{{ $course['title'] }}</a></h2>
-                    {{-- <p class="card-text">{{ $course['description'] }}</p> --}}
+                <div class="card mb-4">
+                    {{-- <img class="card-img-top" src="" alt="{{ $course['thumbnail'] }}"> --}}
+                    <a href="{{ url('/course/' . $course->id) }}"></a>
+                    <div class="card-body">
+                        <h2 class="card-title"><a href = "{{ url('/course/' . $course->id) }}">{{ $course->title }}</a></h2>
+                        {{-- <p class="card-text">{{ $course['description'] }}</p> --}}
+                    </div>
+                    {{--<div class="card-footer text-muted">
+                        Author: {{ $course->author['name'] }} 
+                    </div>--}}
                 </div>
-                {{--<div class="card-footer text-muted">
-                    Author: {{ $course->author['name'] }} 
-                </div>--}}
-            </div>
 
             @endforeach
             @endif

@@ -19,6 +19,15 @@
     {!! Form::text('url', null, array('class' => 'form-control')) !!}
 </div>
 
+<add-box :new_="new_"></add-box>
+<div class="row mt-5 mb-5">
+    <div class="col-md-3">
+        <h5>Agregar Lección </h5>
+    </div>
+    <form-box
+        v-on:add_="add_"
+    ></form-box>
+</div>
 {!! Form::submit($submitbuttontext, ['class' => 'btn']) !!}
 {!! Form::close() !!}
 

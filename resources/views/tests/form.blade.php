@@ -5,16 +5,19 @@
         {!! Html::image('/storage/'.$course->thumbnail, 'Thumbnail') !!}
     @endif
 </div> --}}
-<select name="cantidad" id="cantidad" onchange="cambio_cantidad()">
-     <option value="0">Elija un examen</option>
-    @foreach ($examenes as $examen)
-        <option value="{{$examen->cantidad}}">{{$examen->titulo_examen}}</option>
-    @endforeach
-</select>
+<div class="form-group">
+    
+    <select name="cantidad" class="form-control" id="cantidad" onchange="cambio_cantidad()">
+         <option value="0">Elija un examen</option>
+        @foreach ($examenes as $examen)
+            <option value="{{$examen->cantidad}}" data-id="{{ $examen->id }}">{{$examen->titulo_examen}}</option>
+        @endforeach
+    </select>
+</div>
 
 <div id="preguntas"></div>
 
-{{-- <input type="hidden" name="id_examen" value="{{$examen->id}}"> --}}
+<input type="hidden" name="id_examen" id="id_examen" value="">
 
 <div id="boton_crear">
 
@@ -31,6 +34,7 @@
 
     function cambio_cantidad(){
         cantidad = document.getElementById('cantidad').value * 1;
+        $('#id_examen').val($('#cantidad option:selected').data('id'));
         document.getElementById("boton_crear").innerHTML = "";
         if (cantidad != 0) {
             document.getElementById("boton_crear").innerHTML = '{!! Form::submit($submitbuttontext, ['class' => 'btn']) !!}' +

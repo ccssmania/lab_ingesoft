@@ -14,6 +14,7 @@ class Enrollments extends Migration
     public function up()
     {
         Schema::create('enrollments', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->boolean('status');
@@ -28,7 +29,6 @@ class Enrollments extends Migration
                     ->references('id')
                     ->on('courses')
                     ->onDelete('cascade');
-            $table->primary(['user_id', 'course_id']);
         });
     }
 

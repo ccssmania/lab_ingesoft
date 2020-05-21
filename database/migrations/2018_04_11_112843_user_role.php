@@ -14,10 +14,10 @@ class UserRole extends Migration
     public function up()
     {
         Schema::create('user_role', function(Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
 
-            $table->primary(['user_id', 'role_id']);
 
             $table->foreign('role_id')
                     ->references('id')
