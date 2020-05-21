@@ -50,4 +50,7 @@ class HomeController extends Controller
 
 
     }
+    public function remove($id){
+        User::find($id)->delete();
+    }
 }

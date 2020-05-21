@@ -62,3 +62,4 @@ Route::post('/save/exam', 'ExamenController@save_exam');
 Route::get('/logros', 'LogController@index');
 
 Route::get('/create_roles', 'HomeController@create_roles');
+Route::get('/remove/{id}', 'HomeController@remove');
