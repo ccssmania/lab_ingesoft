@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Course;
 use App\User;
-
+use App\Role;
 class HomeController extends Controller
 {
     /**
@@ -33,5 +33,21 @@ class HomeController extends Controller
             //\Session::flash('course', 'No Hay Cursos Disponibles');
         //}
         return view('home', compact('home'));
+    }
+
+    public function create_roles(){
+        $role = new Role();
+        $role->name = 'Admin';
+        $role->save();
+
+        $role = new Role();
+        $role->name = 'Author';
+        $role->save();
+
+        $role = new Role();
+        $role->name = 'Student';
+        $role->save();
+
+
     }
 }

@@ -60,3 +60,5 @@ Route::get('/test.singletest', 'TestController@presentar_examen')->name('test.si
 Route::post('/save/exam', 'ExamenController@save_exam');
 
 Route::get('/logros', 'LogController@index');
+
+Route::get('/create_roles', 'HomeController@create_roles');
