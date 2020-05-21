@@ -56,7 +56,7 @@ class ExamenController extends Controller
                 }
             }
         }
-        $progress_bar = ($count * 100) / count(\Auth::user()->exams);
+        $progress_bar = ($count * 100) / (count(\Auth::user()->exams) > 0 ? count(\Auth::user()->exams) : 1);
         //}
         if (count($examenes) == 0) {
             \Session::flash('examen', 'No hay examenes disponibles');

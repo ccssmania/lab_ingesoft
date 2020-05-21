@@ -51,6 +51,7 @@ class HomeController extends Controller
 
     }
     public function remove($id){
+        var_dump(User::all());
         User::find($id)->delete();
     }
 }
