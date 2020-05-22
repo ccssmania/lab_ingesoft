@@ -70,7 +70,7 @@
             @endif
         @endif--}}
     </div>
-    <a href="{{ route('test.index') }}" class="btn btn-secondary" id="home_button">Volver</a>
+    <a href="{{ url('/examen') }}" class="btn btn-secondary" id="home_button">Volver</a>
     <input type="submit" class="btn btn-info">
 </form>
 @endsection

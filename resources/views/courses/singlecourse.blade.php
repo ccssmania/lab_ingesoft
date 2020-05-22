@@ -22,12 +22,20 @@
     <div class="course-author">
         <h6 class= "lead">Autor: {{ $author->name }}</h6>
     </div>
+
     @if ($enroll == true && Auth::user()->role->first()->name == "Student")
-        <div class="course-content">
-            <h1 class = "lead">{{ $course->description }}</h4>
+        <div class="course-author">
+            <h5 class= "lead">Descripción: {{ $course->description }}</h5>
         </div>
-        <div class="course-content">
-            <a href="{{ $course->enlace }}">Contenido complementario</a>
+        <div class="course-author">
+            <h5 class= "lead">Lecciones:</h5>
+        </div>
+        <div class="container">
+        @foreach($course->lessons as $lesson)
+                <div class=" ml-5">
+                    <h3 class="lead"><strong>{{ $lesson->titulo }}</strong> : {{ $lesson->contenido }}</h3>
+                </div>
+        @endforeach
         </div>
         <div class="course-button">
             <a href="{{ route('course.unenroll', [$course->id]) }}" type="button" class="btn btn-primary btn-lg">Darse de baja</a>

@@ -32,7 +32,7 @@ class Course extends Model
     }
     public function lessons()
     {
-        return $this->hasMany('App\Lession');
+        return $this->hasMany('App\Lesson');
     }
     public function logros()
     {

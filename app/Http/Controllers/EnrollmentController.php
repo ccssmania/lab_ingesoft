@@ -22,9 +22,10 @@ class EnrollmentController extends Controller
             ]
         );
         $usercourse->save();
-        Enrollments::where('user_id', '=', $user->id)
-                    ->where('course_id', '=', $course->id)
-                    ->delete();
+        $enroll = Enrollments::where('user_id', '=', $user->id)
+                    ->where('course_id', '=', $course->id)->first();
+        $enroll->status = 1;
+        $enroll->save();
         \Session::flash('flash_message', 'La inscripcion ha sido aprobada');
         return redirect(route('dashboard'));
     }
