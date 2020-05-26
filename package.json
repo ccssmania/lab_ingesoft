@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.14.0",
-        "npm": "^6.14.5"
+        "npm": "^6.14.5",
+        "vue-summernote": "^1.0.3"
     }
 }

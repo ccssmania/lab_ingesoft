@@ -14,10 +14,7 @@
     {!! Form::textarea('description', null, array('class' => 'form-control')) !!}
 </div>
 
-<div class="form-group">
-    {!! Form::label('url', 'Contenido Complementario: ') !!}
-    {!! Form::text('url', null, array('class' => 'form-control')) !!}
-</div>
+
 
 <add-box :new_="new_"></add-box>
 <div class="row mt-5 mb-5">

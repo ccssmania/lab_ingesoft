@@ -182,4 +182,11 @@ class CourseController extends Controller
         // dd($course);
         return redirect(route('course.index'));
     }
+
+    public function lessons_index($id){
+        $lesson = Lesson::find($id);
+
+
+        return view('courses.lessons', compact('lesson'));
+    }
 }

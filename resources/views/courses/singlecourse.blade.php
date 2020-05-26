@@ -33,7 +33,7 @@
         <div class="container">
         @foreach($course->lessons as $lesson)
                 <div class=" ml-5">
-                    <h3 class="lead"><strong>{{ $lesson->titulo }}</strong> : {{ $lesson->contenido }}</h3>
+                    <h3 class="lead"><strong><a href="{{ url('/course/lessons/'.$lesson->id) }}">{{ $lesson->titulo }}</a></strong></h3>
                 </div>
         @endforeach
         </div>

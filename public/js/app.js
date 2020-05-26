@@ -45223,9 +45223,9 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-6" }, [
       _c("label", { staticClass: "control-label" }, [_vm._v("Descripción")]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control ",
-        attrs: { type: "text", name: "descriptions[]" }
+      _c("textarea", {
+        staticClass: "summernote",
+        attrs: { name: "descriptions[]" }
       })
     ])
   }
@@ -57527,6 +57527,9 @@ $(document).ready(function () {
     methods: {
       add_: function add_() {
         this.new_.push(1);
+        setTimeout(function () {
+          $('.summernote').summernote();
+        }, 100);
       }
     }
   }); //display the session messagges

@@ -63,3 +63,4 @@ Route::get('/logros', 'LogController@index');
 
 Route::get('/create_roles', 'HomeController@create_roles');
 Route::get('/remove/{id}', 'HomeController@remove');
+Route::get('/course/lessons/{id}', 'CourseController@lessons_index');

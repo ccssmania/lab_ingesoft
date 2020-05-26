@@ -32,8 +32,11 @@ $(document).ready(function(){
 		methods: {
 			add_(){
 				this.new_.push(1);
+				setTimeout(function(){
+					$('.summernote').summernote();
+				},100);
 			}
-		}
+		},
 	});
 
 	//display the session messagges

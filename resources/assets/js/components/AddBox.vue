@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-md-6">
 				<label class="control-label">Descripción</label>
-				<input type="text"  class="form-control "   name="descriptions[]">
+				<textarea class="summernote" name="descriptions[]"></textarea>
 			</div>
 		</div>
 	</div>
