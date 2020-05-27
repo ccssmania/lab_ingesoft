@@ -11,7 +11,6 @@
 {{--Auth::check() && Auth::id() == $author->id--}}
 @if (Auth::check() && Auth::user()->role->first()->name == "Admin")
 <div>
-    <a href="{{ route('examen.edit', [$examen->id]) }}" class="btn btn-secondary" id= "examen_button">Editar examen</a>
     {!! Form::open(['method' => 'delete', 'route' => ['examen.destroy', $examen->id]]) !!}
     <input type="submit" value="Eliminar examen" class="btn btn-danger" id= "examen_button">
     {!! Form::close() !!}

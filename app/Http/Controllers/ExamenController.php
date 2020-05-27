@@ -168,6 +168,7 @@ class ExamenController extends Controller
     }
 
     public function save_exam(Request $request){
+        $recomendaciones = '<br/><strong>Recomendaciones</strong><br/>';
         $examen = Examen::find($request->examen_id);
         $respuesta_preguntas = $request->all();
         $rights = 0;
@@ -177,6 +178,8 @@ class ExamenController extends Controller
             if(isset($respuesta_preguntas['respuesta_pregunta_'.$question->id_pregunta])){
                 if($respuesta_preguntas['respuesta_pregunta_'.$question->id_pregunta] == $question->respuesta_correcta)
                     $rights += 1;
+                else
+                    $recomendaciones .= 'Se recomienda estudiar más de: ' . $question->question_type . '<br></br>';
             }
         }
         $score = ($rights * 5) / count($questions);
@@ -191,11 +194,13 @@ class ExamenController extends Controller
             $message .= 'Examen Enviado! ' . 'NOTA FINAL: '. $score;
             $last_result = Result::where('examen_id', $examen->id)->where( 'user_id', \Auth::user()->id)->orderBy('score', 'Desc')->first();
             if(isset($last_result)){
-                $logro = new Log;
-                $logro->name = 'Nota mas alta: ' . $score;
-                $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
-                $logro->user_id = \Auth::user()->id;
-                $logro->save();
+                if($last_result->score < $score){
+                    $logro = new Log;
+                    $logro->name = 'Nota mas alta: ' . $score;
+                    $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
+                    $logro->user_id = \Auth::user()->id;
+                    $logro->save();
+                }
 
                 if($score > 3 and Log::where('user_id', \Auth::user()->id)->where('examen_id', $examen->id)->first() == null){
                     $new_exam = new Log;
@@ -226,7 +231,7 @@ class ExamenController extends Controller
                 }
                 $new_achivement = '<br></br> Nuevo logro: NOTA MAS ALTA ---- ';
             }
-            $message .=  $new_achivement ;
+            $message .=  $new_achivement . '<br/>' . $recomendaciones;
             \Session::flash('flash_message', $message);
             //dd(\Session::has('flash_message'), \Session::get('flash_message'));
             return redirect('/home');

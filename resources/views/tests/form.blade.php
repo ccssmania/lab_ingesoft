@@ -75,6 +75,10 @@
                                         '{!! Form::label("respuesta_correcta_' + indice + '", "Respuesta correcta: ") !!}'+
                                         '<input class="form-control" name="respuesta_correcta_' + indice + '" type="text" id="respuesta_correcta_' + indice + '">'+
                                     '</div>'+
+                                    '<div class="form-group">'+
+                                        '{!! Form::label("question_type' + indice + '", "Tipo de pregunta: ") !!}'+
+                                        '<input class="form-control" name="question_type_' + indice + '" type="text" id="respuesta_correcta_' + indice + '">'+
+                                    '</div>'+
                                     '{{-- <div class="form-group">'+
                                         '{!! Form::label("imagen", "imagen: ") !!}'+
                                         '{!! Form::text("imagen", null, array("class" => "form-control")) !!}'+

@@ -102,6 +102,7 @@ class TestController extends Controller
                 'respuesta_3' => $input['respuesta_3_'.$i],
                 'respuesta_4' => $input['respuesta_4_'.$i],
                 'respuesta_correcta' => $input['respuesta_correcta_'.$i],
+                'question_type' => $input['question_type_'.$i],
                 'imagen' => "esto_funca.jpg",
                 'user_id' => $user->id
             ]);
