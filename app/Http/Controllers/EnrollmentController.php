@@ -25,6 +25,7 @@ class EnrollmentController extends Controller
         $enroll = Enrollments::where('user_id', '=', $user->id)
                     ->where('course_id', '=', $course->id)->first();
         $enroll->status = 1;
+        //dd($enroll);
         $enroll->save();
         \Session::flash('flash_message', 'La inscripcion ha sido aprobada');
         return redirect(route('dashboard'));
@@ -45,6 +46,7 @@ class EnrollmentController extends Controller
         $courses = Course::where('user_id', '=', $user->id);
         $courses = $courses->pluck('id')->all();
         $enrollments = Enrollments::where('status',0)->get();
+        //dd($enrollments);
         return view('dashboard', compact('enrollments'));
     }
 }

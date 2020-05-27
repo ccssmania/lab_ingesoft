@@ -92,8 +92,8 @@ class CourseController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $text = UserCourse::where('user_id' , '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
-            $enroll = (isset($text))?$text->course_enrolled:'';
+            $text = Enrollments::where('user_id' , '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
+            $enroll = isset($text);
             $comp = UserCourse::where('user_id', '=', $user->id)->where('course_id', '=', $course->id)->get()->first();
             $complete = (isset($comp) && $comp->course_completed == 1)?$comp->course_completed:false;
         } else {
@@ -137,6 +137,9 @@ class CourseController extends Controller
     {
         //detach record from user-course.
         UserCourse::where('user_id', '=', Auth::id())
+                    ->where('course_id', '=', $course->id)
+                    ->delete();
+        Enrollments::where('user_id', '=', Auth::id())
                     ->where('course_id', '=', $course->id)
                     ->delete();
         \Session::flash('flash_message', 'Se ha dado de baja del curso!');
