@@ -44,7 +44,7 @@ class EnrollmentController extends Controller
         $user = Auth::user();
         $courses = Course::where('user_id', '=', $user->id);
         $courses = $courses->pluck('id')->all();
-        $enrollments = Enrollments::where('status',0)->whereIn('course_id', $courses)->get();
+        $enrollments = Enrollments::where('status',0)->get();
         return view('dashboard', compact('enrollments'));
     }
 }
