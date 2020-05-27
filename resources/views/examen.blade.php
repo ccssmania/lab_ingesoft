@@ -39,6 +39,11 @@
                     Author: {{ $test->author['name'] }}
                 </div>
                 --}}
+                @if($examen->results()->orderBy('score', 'DESC')->first() !== null and $examen->results()->orderBy('score', 'DESC')->first()->score >= 3)
+                <div class="check">
+                    <i class="fa fa-check-circle fa-2x"></i>
+                </div>
+                @endif
             </div>
             
             @endforeach

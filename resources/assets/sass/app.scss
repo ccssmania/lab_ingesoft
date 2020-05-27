@@ -73,3 +73,10 @@ button a {
   background: none;
   outline: none;
 }
+.check{
+  position: absolute;
+
+  right: 1em;
+  bottom: 1em;
+  color: $success;
+}
