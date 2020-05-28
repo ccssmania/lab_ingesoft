@@ -72,7 +72,7 @@
                                         '<input class="form-control" name="respuesta_4_' + indice + '" type="text" id="respuesta_4_' + indice + '">'+
                                     '</div>'+
                                     '<div class="form-group">'+
-                                        '{!! Form::label("respuesta_correcta_' + indice + '", "Respuesta correcta: ") !!}'+
+                                        '{!! Form::label("respuesta_correcta_' + indice + '", "Casilla correcta: ") !!}'+
                                         '<input class="form-control" name="respuesta_correcta_' + indice + '" type="text" id="respuesta_correcta_' + indice + '">'+
                                     '</div>'+
                                     '<div class="form-group">'+
