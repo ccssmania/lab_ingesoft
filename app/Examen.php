@@ -24,6 +24,9 @@ class Examen extends Model
     {
         return $this->belongsTo('App\Course','user_course', 'user_id');
     }
+    public function course(){
+        return $this->belongsTo('App\Course','course_id');
+    }
     public function results()
     {
         return $this->hasMany('App\Result');

@@ -30,6 +30,9 @@ class Course extends Model
     public function examen() {
         return $this->hasOne('App\Examen');
     }
+    public function exams(){
+        return $this->hasMany('App\Examen');
+    }
     public function lessons()
     {
         return $this->hasMany('App\Lesson');

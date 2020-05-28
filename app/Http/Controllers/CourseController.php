@@ -19,25 +19,28 @@ class CourseController extends Controller
      */
     public function index()
     {
-        /**if (Auth::check()) {
-            $usercourse = UserCourse::where('user_id', '=', Auth::id())
-                                    ->get();
-            $courses = [];
-            foreach ($usercourse as $row) {
-                $courses[] = $row->course;
-            }
-            $courses = collect($courses);
-        } else {*/
+        $count = 0;
+        if(\Auth::user()->role()->first()->name === 'Admin'){
             $courses = Course::all();
-        //}
-        if ($courses->isEmpty()) {
-            \Session::flash('course', 'No se encuentra inscrito a ningun nivel');
-        } else {
-            foreach ($courses as $course) {
-                $course->author = User::find($course->user_id);
+        }else{
+            $courses = [];
+            $all_users_courses = Course::all();
+            foreach ($all_users_courses as $user_course) {
+                $courses[] = $user_course;
+                $completed = UserCourse::where('user_id', \Auth::user()->id)->where('course_id', $user_course->id)->first();
+                if(!isset($completed) or $completed->course_completed == 0){
+                    break;
+                }else{
+                    $count ++;
+                }
             }
         }
-        return view('courses', compact('courses'));
+
+        $progress = ($count / (count(Course::all()) > 0 ? count(Course::all()) : 1)) * 100;
+        if (count($courses) == 0) {
+            \Session::flash('course', 'No se encuentra inscrito a ningun nivel');
+        }
+        return view('courses', compact('courses', 'progress'));
     }
 
     /**

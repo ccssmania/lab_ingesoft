@@ -10,7 +10,7 @@ use App\Examen;
 use App\UserTest;
 use App\Result;
 use App\Log;
-
+use App\UserCourse;
 
 class ExamenController extends Controller
 {
@@ -230,6 +230,25 @@ class ExamenController extends Controller
                     $message .= '<br></br> Ha superado el examen. ';
                 }
                 $new_achivement = '<br></br> Nuevo logro: NOTA MAS ALTA ---- ';
+            }
+
+            if($score >= 3){
+                $course = $examen->course;
+                $count = 0;
+                $user_id = \Auth::user()->id;
+                foreach ($course->exams as $exam) {
+                    $examen_id = $exam->id;
+                    if(Log::where('user_id', $user_id)->where('examen_id', $examen_id)->first() !== null){
+                        $count++;
+                    }else{
+                        break;
+                    }
+                }
+                if($count == count($course->exams)){
+                    $user_course = UserCourse::where('course_id', $course->id)->where('user_id', $user_id)->first();
+                    $user_course->course_completed = 1;
+                    $user_course->save();
+                }
             }
             $message .=  $new_achivement . '<br/>' . $recomendaciones;
             \Session::flash('flash_message', $message);
