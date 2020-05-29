@@ -33,6 +33,7 @@
                 <a href = "{{ route('examen.show', [$examen->id]) }}" ></a>
                 <div class="card-body">
                     <h2 class="card-title"><a href = "{{ route('examen.show', [$examen->id]) }}">{{ $examen['titulo_examen'] }}</a></h2>
+                    <h4 class="text-muted ml-5">curso : {{ $examen->course->title }}</h4>
                     {{--<p class="card-text">{{ $examen[''],$test['nivel']}}</p>--}}
                 </div>
           {{--      <div class="card-footer text-muted">
