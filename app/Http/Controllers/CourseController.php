@@ -169,6 +169,17 @@ class CourseController extends Controller
         $input = $request->all();
         //$input['thumbnail'] = $request->file('thumbnail')->store('images');
         $course->update($input);
+        if(isset($request->lessons)){
+            foreach ($request->lessons as $key => $title) {
+                if(isset($request->descriptions[$key]) and isset($request->descriptions[$key]) !== ''){
+                    $lesson = new Lesson;
+                    $lesson->course_id = $course->id;
+                    $lesson->titulo = $title;
+                    $lesson->contenido = $request->descriptions[$key];
+                    $lesson->save();
+                }
+            }
+        }
         \Session::flash('flash_message', 'El curso ha sido modificado!');
         return redirect(route('course.edit',[$course['id']]));
 
