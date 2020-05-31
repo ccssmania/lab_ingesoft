@@ -194,7 +194,7 @@ class ExamenController extends Controller
             $message .= 'Examen Enviado! ' . 'NOTA FINAL: '. $score;
             $last_result = Result::where('examen_id', $examen->id)->where( 'user_id', \Auth::user()->id)->orderBy('score', 'Desc')->first();
             if(isset($last_result)){
-                if($last_result->score < $score){
+                if(($last_result->score <= $score and $last_result->id == $result->id) or ($last_result->score < $score)){
                     $logro = new Log;
                     $logro->name = 'Nota mas alta: ' . $score;
                     $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
