@@ -213,24 +213,6 @@ class ExamenController extends Controller
                 }
                 $new_achivement = $score == $last_result->score ? '<br></br> Nuevo logro: NOTA MAS ALTA' : '';
             }
-            else{
-                $logro = new Log;
-                $logro->name = 'Nota mas alta: ' . $score;
-                $logro->description = 'Ha alcanzado una nota mas alta en el examen: '. $examen->titulo_examen;
-                $logro->user_id = \Auth::user()->id;
-                $logro->save();
-
-                if($score > 3 and Log::where('user_id', \Auth::user()->id)->where('examen_id', $examen->id)->first() == null){
-                    $new_exam = new Log;
-                    $new_exam->name = 'Ha superado el examen';
-                    $new_exam->description = 'El siguiente examen ya esta disponible';
-                    $new_exam->user_id = \Auth::user()->id;
-                    $new_exam->examen_id = $examen->id;
-                    $new_exam->save();
-                    $message .= '<br></br> Ha superado el examen. ';
-                }
-                $new_achivement = '<br></br> Nuevo logro: NOTA MAS ALTA ---- ';
-            }
 
             if($score >= 3){
                 $course = $examen->course;
