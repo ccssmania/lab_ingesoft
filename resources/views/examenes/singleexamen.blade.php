@@ -20,11 +20,6 @@
     <div class="examen-title">
         <h1 class = "display-4">{{ $examen->titulo_examen }}</h1>
     </div>
-    <div class="examen-content">
-        <p class = "lead">{{ $examen->course_id }}</p>
-        <p class = "lead">{{ $examen->user_id }}</p>
-        <p class = "lead">{{ $examen->cantidad }}</p>
-    </div>
    
 
 @if (Auth::user()->role->first()->name == "Student")
