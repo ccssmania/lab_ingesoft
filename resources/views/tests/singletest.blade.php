@@ -20,16 +20,16 @@
     <input type="hidden" name="examen_id" value="{{ $examen_id }}">
     <div class="jumbotron">
         @foreach ($preguntas as $pregunta)
-            <div id="pregunta_{{$pregunta->id_pregunta}}">
-                <label>{{ $pregunta->pregunta }}</label><br>
-                <input type="radio" class=" " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_1' value="1">
-                <label>{{ $pregunta->respuesta_1 }}</label><br>
-                <input type="radio" class=" " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_2' value="2">
-                <label>{{ $pregunta->respuesta_2 }}</label><br>
-                <input type="radio" class=" " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_3' value="3">
-                <label>{{ $pregunta->respuesta_3 }}</label><br>
-                <input type="radio" class=" " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_4' value="4">
-                <label>{{ $pregunta->respuesta_4 }}</label><br>
+            <div id="pregunta_{{$pregunta->id_pregunta}}" class="form-check">
+                <label> Pregunta : {{ $pregunta->id_pregunta }} <img src="{{ url('/images/test_'.$pregunta->id.'.'.$pregunta->pregunta) }}" class=""  height="200" alt="pregunta"></label><br>
+                <input type="radio" class="form-check-input " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_1' value="1">
+                <label class="form-check-label">{!! $pregunta->respuesta_1 !!}</label><br>
+                <input type="radio" class="form-check-input " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_2' value="2">
+                <label class="form-check-label">{!! $pregunta->respuesta_2 !!}</label><br>
+                <input type="radio" class="form-check-input " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_3' value="3">
+                <label class="form-check-label">{!! $pregunta->respuesta_3 !!}</label><br>
+                <input type="radio" class="form-check-input " name="respuesta_pregunta_{{ $pregunta->id_pregunta }}" id='answer_4' value="4">
+                <label class="form-check-label">{!! $pregunta->respuesta_4 !!}</label><br>
 
                 <input type="hidden" name="respuesta_correcta[]" value="{{ $pregunta->respuesta_correcta }}">
                 

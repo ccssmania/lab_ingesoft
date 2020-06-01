@@ -51,29 +51,35 @@
             //alert(actual_plantilla);
             texto_pregunta = "pregunta_" + indice;
             plantilla_a_agregar = '<div id="plantilla_pregunta_' + indice + '">'+
-                                    '<div class="form-group">'+
-                                        '{!! Form::label("' + texto_pregunta + '", "Pregunta:") !!}'+
-                                        '<input class="form-control" name="' + texto_pregunta + '" type="text" id="' + texto_pregunta + '">'+
+                                    '<div class="form-group row">'+
+                                        '<div class="col-md-6">' +
+                                            '{!! Form::label("' + texto_pregunta + '", "tipo de imagen:") !!}'+
+                                            '<input class="form-control" name="' + texto_pregunta + '" type="text" id="' + texto_pregunta + '">'+
+                                        '</div>' +
+                                        '<div class="col-md-6">' +
+                                            '<label class="control-label">Imagen</label>' +
+                                            '<input class="form-control" type="file" name="prgunta_image_' + indice + '">' +
+                                        '</div>' +
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("respuesta_1_' + indice + '", "Respuesta 1: ") !!}'+
-                                        '<input class="form-control" name="respuesta_1_' + indice + '" type="text" id="respuesta_1_' + indice + '">'+
+                                        '<textarea class="form-control textarea" name="respuesta_1_' + indice + '" type="text" id="respuesta_1_' + indice + '"> </textarea>'+
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("respuesta_2_' + indice + '", "Respuesta 2: ") !!}'+
-                                        '<input class="form-control" name="respuesta_2_' + indice + '" type="text" id="respuesta_2_' + indice + '">'+
+                                        '<textarea class="form-control textarea" name="respuesta_2_' + indice + '" type="text" id="respuesta_2_' + indice + '"> </textarea>'+
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("respuesta_3_' + indice + '", "Respuesta 3: ") !!}'+
-                                        '<input class="form-control" name="respuesta_3_' + indice + '" type="text" id="respuesta_3_' + indice + '">'+
+                                        '<textarea class="form-control textarea" name="respuesta_3_' + indice + '" type="text" id="respuesta_3_' + indice + '"> </textarea>'+
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("respuesta_4_' + indice + '", "Respuesta 4: ") !!}'+
-                                        '<input class="form-control" name="respuesta_4_' + indice + '" type="text" id="respuesta_4_' + indice + '">'+
+                                        '<textarea class="form-control textarea" name="respuesta_4_' + indice + '" type="text" id="respuesta_4_' + indice + '"> </textarea>'+
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("respuesta_correcta_' + indice + '", "Casilla correcta: ") !!}'+
-                                        '<input class="form-control" name="respuesta_correcta_' + indice + '" type="text" id="respuesta_correcta_' + indice + '">'+
+                                        '<input class="form-control " name="respuesta_correcta_' + indice + '" type="text" id="respuesta_correcta_' + indice + '">'+
                                     '</div>'+
                                     '<div class="form-group">'+
                                         '{!! Form::label("question_type' + indice + '", "Tipo de pregunta: ") !!}'+
@@ -85,6 +91,9 @@
                                     '</div> --}}'+
                                 '</div>';
             document.getElementById('preguntas').innerHTML =  document.getElementById('preguntas').innerHTML + plantilla_a_agregar;
+            setTimeout(function(){
+                $('.textarea').summernote();
+            },200);
 
         }
     }

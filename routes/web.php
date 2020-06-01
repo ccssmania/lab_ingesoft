@@ -64,3 +64,19 @@ Route::get('/logros', 'LogController@index');
 Route::get('/create_roles', 'HomeController@create_roles');
 Route::get('/remove/{id}', 'HomeController@remove');
 Route::get('/course/lessons/{id}', 'CourseController@lessons_index');
+
+//Access to storage images
+
+Route::get('/images/{filename}',function($filename){
+	$path = storage_path("app/images/$filename");
+
+
+	if(!\File::exists($path)) abort(404);
+	$file = \File::get($path);
+	$type = \File::mimeType($path);
+
+	$response = Response::make($file,200);
+	$response->header("Content-Type", $type);
+
+	return $response;
+});

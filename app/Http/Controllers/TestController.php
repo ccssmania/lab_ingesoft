@@ -93,7 +93,7 @@ class TestController extends Controller
         $user = \Auth::user();
         for ($i=1; $i < $input['cantidad']+1; $i++) { 
             $titulo = 'pregunta_'.$i;
-            Test::create([
+            $test = Test::create([
                 'examen_id' => $input['id_examen'],
                 'id_pregunta' => $i,
                 'pregunta' => $input['pregunta_'.$i],
@@ -106,6 +106,11 @@ class TestController extends Controller
                 'imagen' => "esto_funca.jpg",
                 'user_id' => $user->id
             ]);
+            $test->save();
+            if(isset($input['prgunta_image_'.$i])){
+                $extension = $input['prgunta_image_'.$i]->extension();
+                $input['prgunta_image_'.$i]->storeAs('images',"test_$test->id".".$extension");
+            }
         }
 
 

@@ -57556,6 +57556,7 @@ $(document).ready(function () {
       showConfirmButton: false
     });
   });
+  $('.textarea').summernote();
 });
 
 /***/ }),

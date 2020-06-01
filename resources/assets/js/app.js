@@ -50,4 +50,6 @@ $(document).ready(function(){
 	$('form').submit(function(){
 		swal({title: "Cargando", text: "Se esta realizando la acción", type: "info", showConfirmButton: false});
 	});
+
+	$('.textarea').summernote();
 });
